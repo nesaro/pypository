@@ -25,8 +25,9 @@ LOG = logging.getLogger(__name__)
 
 class DirStorage(Memory):
     """A collection of elements stored inside a directory"""
-    def __init__(self, dirpath):
+    def __init__(self, dirpath, formatlist):
         Memory.__init__(self)
+        self.formatlist = formatlist
         self.path = dirpath
         from pypository.search.Searcher import MemorySearcher
         self._searcher = MemorySearcher(self)
@@ -41,9 +42,13 @@ class DirStorage(Memory):
                 LOG.debug("Error while loading %s file summary %s" % (filename, e) )
         return self
 
+    def summary_from_filename(self, filepath):
+        entry = [x for x in self.formatlist if filepath.endswith(x["extension"])][0]
+        return ImmutableDict(entry["summary_from_file"](filepath))
+
     @property
     def allowed_extensions(self):
-        raise NotImplementedError
+        return [x["extension"] for x in self.formatlist]
 
     def next(self):
         try:
@@ -53,11 +58,6 @@ class DirStorage(Memory):
         self.index += 1
         return result
         
-
-    @staticmethod
-    def summary_from_filename(filepath):
-        raise NotImplementedError
-
     def all_files(self):
         import glob
         extensions = self.allowed_extensions or [""]
@@ -79,7 +79,20 @@ class DirStorage(Memory):
             yield fileBaseName.split(".")[0]
 
     def load(self, name):
-        raise NotImplementedError
+        result = self._searcher.search(name)
+        if len(result) > 1:
+            LOG.error("Found two or more matches, FIXME: processing the first, should raise exception")
+        if not result:
+            raise KeyError(self.__class__.__name__ + name)
+        filepath = list(result)[0]["filepath"]
+        entries = [x for x in self.formatlist if filepath.endswith(x["extension"])]
+        for entry in entries:
+            try:
+                return entry["load_from_file"](filepath)
+            except ValueError:
+                continue
+        raise ValueError("Unable to open: %s" % name)
+
 
     def __contains__(self, key):
         return key in self.all_names()
