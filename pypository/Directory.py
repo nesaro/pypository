@@ -29,8 +29,8 @@ class DirStorage(Memory):
         Memory.__init__(self)
         self.formatlist = formatlist
         self.path = dirpath
-        from pypository.search.Searcher import MemorySearcher
-        self._searcher = MemorySearcher(self)
+        from pypository.search.Searcher import Searcher
+        self._searcher = Searcher(self)
 
     def __iter__(self):
         self.index = 0

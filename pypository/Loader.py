@@ -34,7 +34,7 @@ def load(identifier, memorylist):
     raise KeyError(identifier)
 
 def search(query, memorylist):
-    from pypository.search.Searcher import MemorySearcher
+    from pypository.search.Searcher import Searcher
     from pypository.search.Indexer import Indexer
-    searcher = MemorySearcher([Indexer(x) for x in memorylist])
+    searcher = Searcher([Indexer(x) for x in memorylist])
     return searcher.search(query)

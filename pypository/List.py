@@ -33,13 +33,13 @@ class ListStorage(Memory):
     def __init__(self, fullpath):
         Memory.__init__(self)
         self._content = {}
-        from pypository.search.Searcher import MemorySearcher
+        from pypository.search.Searcher import Searcher
         (_, _, fileBaseName, _) = getFileTuple(fullpath)
         import imp
         myobj = imp.load_source(fileBaseName, fullpath)
         for element in myobj.mylist:
             self._content[self._generatekey(element)] = element
-        self._searcher = MemorySearcher(self)
+        self._searcher = Searcher(self)
 
     def __iter__(self):
         self.index = 0
