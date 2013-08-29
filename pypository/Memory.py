@@ -50,16 +50,18 @@ class Memory(object):
     def __setitem__(self, index, value):
         return self.save(value, index)
 
+    @property
     def indexer(self):
         from pypository.search.Indexer import Indexer
         return Indexer(self)
     
+    @property
     def searcher(self):
         from pypository.search.Searcher import MemorySearcher
-        return MemorySearcher(self.indexer())
+        return MemorySearcher(self.indexer)
     
     def search(self, query):
-        return self.searcher().search(query)
+        return self.searcher.search(query)
 
     def provided_iclasses(self):
         raise NotImplementedError
