@@ -17,21 +17,17 @@
 
 """
 Searcher class
+A searcher is linked with an indexer. Users creates a query, and then searcher iterates the indexer to find matches
 """
 
 __author__ = "Nestor Arocha"
 __copyright__ = "Copyright 2008-2013, Nestor Arocha"
 __email__ = "nesaro@gmail.com"
 
-#A searcher is linked with an indexer. Users creates a query, and then searcher iterates the indexer to find matches
 
 from .Indexer import Indexer
 
 class Searcher(object):
-    def search(self, query):
-        raise NotImplementedError
-
-class MemorySearcher(Searcher):
     def __init__(self, indexerlist):
         from pypository.Memory import Memory
         if isinstance(indexerlist, Indexer):
