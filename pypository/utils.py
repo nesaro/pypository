@@ -43,6 +43,9 @@ class ImmutableDict(dict):
                 return False
         return True
 
+    def __setitem__(self, key, value):
+        raise Exception
+
 def getFileTuple(fullname):
     import os.path
     (dirName, fileName) = os.path.split(fullname)
