@@ -1,7 +1,7 @@
 pypository
 ==========
 
-Python classes repositories. Store your classes into files, search for them and load them back to python
+Repository pattern using python files. Store your classes into files, search for them and load them back to python
 
 Media options
 =============
