@@ -23,9 +23,6 @@ import unittest
 
 class TestQuery(unittest.TestCase):
     """Test search query functions"""
-    def setUp(self):
-        pass
-    
     def teststrToQuery(self):
         from pypository.search.Query import str_to_memoryquery
         str_to_memoryquery("id")
@@ -39,5 +36,3 @@ class TestQuery(unittest.TestCase):
         dict_to_query({"identifier":"id","description":"desc"})
         dict_to_query({"identifier":"id","description":{"$not":"desc"}})
         myquery = dict_to_query({"roledict":{"$part":{"subject":"human"}}})
-        from pypository.Memory import LocalMemory
-        mymem = LocalMemory()

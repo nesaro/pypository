@@ -23,11 +23,7 @@ __email__ = "nesaro@gmail.com"
 import logging
 LOG = logging.getLogger(__name__)
 
-class Memory(object):
-    """Memory Abstraction"""
-    def __init__(self):
-        pass
-
+class Repository(object):
     def load(self, index, **kwargs):
         raise NotImplementedError
     
@@ -65,36 +61,3 @@ class Memory(object):
 
     def provided_iclasses(self):
         raise NotImplementedError
-
-class LocalMemory(Memory):
-    """Execution time memory"""
-    def __init__(self):
-        Memory.__init__(self)
-        self.content = {}
-    
-    def load(self, index):
-        return self.content[index]
-    
-    def save(self, element, identifier):
-        self.content[str(identifier)] = element
-    
-    def __delitem__(self, key):
-        del self.content[key]
-
-    def __contains__(self, index):
-        return index in self.content
-    
-    def __iter__(self):
-        self.cacheindex = 0
-        self.cache = []
-        for element in self.content.values():
-            self.cache.append(element.summary)
-        return self
-    
-    def next(self):
-        try:
-            result = self.cache[self.cacheindex]
-        except IndexError:
-            raise StopIteration
-        self.cacheindex += 1
-        return result

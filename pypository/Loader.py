@@ -21,20 +21,20 @@ __author__ = "Nestor Arocha"
 __copyright__ = "Copyright 2008-2013, Nestor Arocha"
 __email__ = "nesaro@gmail.com"
 
-def load(identifier, memorylist):
-    results = search(identifier, memorylist)
+def load(identifier, repositories):
+    results = search(identifier, repositories)
     if not results:
         raise KeyError(identifier)
     if len(results) > 1:
         raise ValueError("Multiple results")
     identifier = list(results)[0]["identifier"]
-    for memory in memorylist:
-        if identifier in memory:
-            return memory.load(identifier)
+    for repository in repositories:
+        if identifier in repository:
+            return repository.load(identifier)
     raise KeyError(identifier)
 
-def search(query, memorylist):
+def search(query, repositories):
     from pypository.search.Searcher import Searcher
     from pypository.search.Indexer import Indexer
-    searcher = Searcher([Indexer(x) for x in memorylist])
+    searcher = Searcher([Indexer(x) for x in repositories])
     return searcher.search(query)

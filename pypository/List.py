@@ -15,10 +15,9 @@
 #You should have received a copy of the GNU General Public License
 #along with pypository.  If not, see <http://www.gnu.org/licenses/>.
 
-"""ListLibrary"""
 import logging
-LOG = logging.getLogger("Storage.List")
-from pypository.Memory import Memory
+LOG = logging.getLogger(__name__)
+from pypository.Repository import Repository
 from pypository.utils import ImmutableDict, getFileTuple
 
 
@@ -28,10 +27,10 @@ __copyright__ = "Copyright 2008-2013, Nestor Arocha"
 __email__ = "nesaro@gmail.com"
 
 
-class ListStorage(Memory):
+class ListRepository(Repository):
     """Stores element in a python file using a python list"""
     def __init__(self, fullpath):
-        Memory.__init__(self)
+        Repository.__init__(self)
         self._content = {}
         from pypository.search.Searcher import Searcher
         (_, _, fileBaseName, _) = getFileTuple(fullpath)

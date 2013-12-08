@@ -17,16 +17,16 @@
 
 """ Directory storage """
 
-from .Memory import Memory
+from .Repository import Repository
 from pypository.utils import ImmutableDict, getFileTuple
 import logging
 LOG = logging.getLogger(__name__)
 
 
-class DirStorage(Memory):
+class DirRepository(Repository):
     """A collection of elements stored inside a directory"""
     def __init__(self, dirpath, formatlist):
-        Memory.__init__(self)
+        Repository.__init__(self)
         self.formatlist = formatlist
         self.path = dirpath
         from pypository.search.Searcher import Searcher
