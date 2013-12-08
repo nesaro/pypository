@@ -29,10 +29,10 @@ from .Indexer import Indexer
 
 class Searcher(object):
     def __init__(self, indexerlist):
-        from pypository.Memory import Memory
+        from pypository.Repository import Repository
         if isinstance(indexerlist, Indexer):
             indexerlist = [indexerlist]
-        elif isinstance(indexerlist, Memory):
+        elif isinstance(indexerlist, Repository):
             indexerlist = [Indexer(indexerlist)]
         assert(isinstance(indexerlist, list))
         self.indexerlist = indexerlist
