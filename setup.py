@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 setup(name='pypository',
-      version='0.1.0',
+      version='0.2.0',
       description='Repository library for python objects',
       author='Nestor Arocha',
       author_email='nesaro@gmail.com',
