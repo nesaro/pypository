@@ -70,7 +70,7 @@ class DirRepository(Repository):
                 yield result
 
 
-    def all_names(self):
+    def keys(self):
         """Generates all Static Ids"""
         for fullname in self.all_files():
             (_, _, fileBaseName, fileExtension) = getFileTuple(fullname)
@@ -95,7 +95,7 @@ class DirRepository(Repository):
 
 
     def __contains__(self, key):
-        return key in self.all_names()
+        return key in self.keys()
 
     def provided_iclasses(self):
         return set([x['iclass'] for x in self])
