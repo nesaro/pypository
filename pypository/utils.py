@@ -51,10 +51,3 @@ def getFileTuple(fullname):
     (dirName, fileName) = os.path.split(fullname)
     (fileBaseName, fileExtension) = os.path.splitext(fileName)
     return dirName, fileName, fileBaseName, fileExtension
-
-def load_module(filepath, identifier = None):
-    import imp
-    if identifier is None:
-        (_, _, identifier, _) = getFileTuple(filepath)
-    return imp.load_source(identifier, filepath)
-
